@@ -71,7 +71,7 @@ const NewRecipeModal = ({
 
   const addOrRemoveHandler = (id: bigint) => {
     setSelectedDrugs((prevSelectedDrugs) => {
-      let updatedDrugs;
+      let updatedDrugs: bigint[];
 
       if (prevSelectedDrugs.includes(id)) {
         updatedDrugs = prevSelectedDrugs.filter((drugId) => drugId !== id);
