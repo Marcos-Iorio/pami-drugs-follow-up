@@ -100,7 +100,7 @@ const NewRecipeModal = ({
           <h2 className="text-2xl font-bold text-[#E9EDDE] text-center">
             Nueva receta
           </h2>
-          <p>
+          <p className="text-[#E9EDDE]">
             Cargá nada más cuando llevaron las recetas. Y luego editá y cargá
             las demás fechas.
           </p>
@@ -125,7 +125,7 @@ const NewRecipeModal = ({
             name="boughtAt"
             setData={bougthAtChangeHandler}
           />
-          <p>Seleccioná los medicamentos pedidos:</p>
+          <p className="text-[#E9EDDE]">Seleccioná los medicamentos pedidos:</p>
           <Drugs
             drugs={drugs}
             isSelectable={true}
