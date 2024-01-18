@@ -1,4 +1,4 @@
-Simple ersonal project to solve a problem.
+Simple personal project to solve a problem.
 
 This points to solve the problem that it's difficult to follow up the calendar of meds in PAMI, this functions like a personal calendar with dates to bought the meds.
 It will help my family to follo up the orders of the meds of my grandparents.
