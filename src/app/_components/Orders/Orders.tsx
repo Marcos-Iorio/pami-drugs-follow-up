@@ -3,6 +3,7 @@ import Recipe from "../Recipes/Recipe/Recipe";
 import AddRecipe from "../Recipes/AddRecipe/AddRecipe";
 import { Drug } from "../Drugs/Drugs";
 import { Suspense } from "react";
+import RecipeWrapper from "../Recipes/Recipe/RecipeWrapper";
 
 interface OrdersProp {
   id: string;
@@ -30,7 +31,7 @@ const Orders = async ({ id, drugs }: OrdersProp) => {
       </h2>
       <section className="flex flex-row gap-5 mt-10 flex-wrap items-center justify-stretch xl:w-full 2xl:w-[92.5rem] pb-14">
         {orders.map((order: Order, index: number) => (
-          <Recipe key={index} {...order} />
+          <RecipeWrapper key={index} {...order} />
         ))}
         <Suspense fallback={<p style={{ textAlign: "center" }}>Cargando...</p>}>
           <AddRecipe drugs={drugs} id={id} />

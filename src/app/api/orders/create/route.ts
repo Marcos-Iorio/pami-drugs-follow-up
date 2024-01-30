@@ -1,13 +1,8 @@
-import { Order } from "@/app/_components/Orders/Orders";
 import { prisma } from "@/lib/prisma";
 
 async function POST(req: Request) {
   const body = await req.json();
 
-  if (body === undefined || body === null) {
-    console.log("undefined o null");
-    return;
-  }
   try {
     const newRecipe = await prisma.orders.create({
       data: {

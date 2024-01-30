@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NewRecipeModal from "../NewRecipeModal/NewRecipeModal";
 import { Drug } from "../../Drugs/Drugs";
 import { Order } from "../../Orders/Orders";
-import { useSuspenseQuery } from "@tanstack/react-query";
+
 import { toast } from "react-hot-toast";
 
 const createOrder = async (order: Order | undefined): Promise<any> => {
@@ -14,7 +14,7 @@ const createOrder = async (order: Order | undefined): Promise<any> => {
   };
 
   try {
-    const response = await fetch(`/api/orders`, {
+    const response = await fetch(`/api/orders/create`, {
       method: "POST",
       body: JSON.stringify(order),
     });
@@ -58,6 +58,7 @@ const AddRecipe = ({ drugs, id }: { drugs: Drug[]; id: string }) => {
           drugs={drugs}
           id={id}
           func={createRecipe}
+          buttonText="Agregar"
         />
       )}
     </>

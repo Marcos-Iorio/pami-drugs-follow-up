@@ -8,6 +8,7 @@ import {
 import { Order } from "../../Orders/Orders";
 import Input from "./Input";
 import Drugs, { Drug } from "../../Drugs/Drugs";
+import dayjs from "dayjs";
 
 interface ModalProps {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
@@ -15,6 +16,7 @@ interface ModalProps {
   drugs: Drug[];
   id: string;
   func: (data: Order) => void;
+  buttonText: string;
 }
 
 interface BackdropProps {
@@ -39,6 +41,7 @@ const NewRecipeModal = ({
   drugs,
   id,
   func,
+  buttonText,
 }: ModalProps) => {
   const initialState: Order = {
     id: BigInt(0),
@@ -52,7 +55,10 @@ const NewRecipeModal = ({
   const [data, setData] = useState<Order>(
     orderData === undefined ? initialState : orderData
   );
-  const [selectedDrugs, setSelectedDrugs] = useState<bigint[]>([]);
+
+  const [selectedDrugs, setSelectedDrugs] = useState<bigint[]>(
+    orderData === undefined ? [] : orderData.drugs
+  );
 
   const giveAtChangeHandler = (dateString: string) => {
     setData((prev) => ({ ...prev, givenAt: dateString }));
@@ -90,6 +96,7 @@ const NewRecipeModal = ({
 
     func(data);
   };
+
   return (
     <Backdrop onClose={closeModalHandler}>
       <section
@@ -114,16 +121,32 @@ const NewRecipeModal = ({
             info="Cúando llevaron las recetas:"
             name="givenAt"
             setData={giveAtChangeHandler}
+            defaultDate={
+              orderData?.givenAt === undefined || orderData?.givenAt === null
+                ? undefined
+                : dayjs(data.givenAt).add(3, "hours")
+            }
           />
           <Input
             info="Cúando retiraron las recetas:"
             name="retiredAt"
             setData={retiredAtChangeHandler}
+            defaultDate={
+              orderData?.retiredAt === undefined ||
+              orderData?.retiredAt === null
+                ? undefined
+                : dayjs(data.retiredAt).add(3, "hours")
+            }
           />
           <Input
             info="Cúando compraron los medicamentos:"
             name="boughtAt"
             setData={bougthAtChangeHandler}
+            defaultDate={
+              orderData?.boughtAt === undefined || orderData?.boughtAt === null
+                ? undefined
+                : dayjs(data.boughtAt).add(3, "hours")
+            }
           />
           <p className="text-[#E9EDDE]">Seleccioná los medicamentos pedidos:</p>
           <Drugs
@@ -137,7 +160,7 @@ const NewRecipeModal = ({
             type="submit"
             className="border-2 rounded-lg py-3 mt-auto border-[#18283A] bg-[#030C11] text-lg text-[#E9EDDE] font-bold hover:bg-[#030c115b]"
           >
-            AGREGAR RECETA
+            {buttonText}
           </button>
         </form>
       </section>
