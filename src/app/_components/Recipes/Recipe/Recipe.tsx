@@ -88,7 +88,7 @@ const Recipe = ({ order, drugs }: RecipeProps) => {
           ) : (
             <Attr
               text={"Próximo pedido:"}
-              info={formatDate(calcNextDate(data.retiredAt, 60))}
+              info={formatDate(calcNextDate(data.retiredAt, 90))}
             />
           )}
           {data.boughtAt === null ? (
