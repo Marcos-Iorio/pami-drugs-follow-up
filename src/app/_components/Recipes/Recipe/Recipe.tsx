@@ -56,7 +56,7 @@ const Recipe = ({ order, drugs }: RecipeProps) => {
     <>
       <article
         onClick={() => setIsOpen(true)}
-        className="border-2 cursor-pointer relative  overflow-hidden border-solid rounded-lg border-[#18283A] bg-[#0B131D] p-10 flex flex-col gap-3 flex-wrap h-[29rem] w-[30rem] first-of-type:border-green-500 after:absolute after:top-0 after:left-1 after:w-full after:h-full after:bg-black/30 transition-all after:backdrop-blur-sm after:hidden hover:after:block before:content-['Editar'] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:z-50 before:hidden hover:before:block before:text-4xl before:font-bold"
+        className="border-2 cursor-pointer relative  overflow-hidden border-solid rounded-lg border-[#18283A] bg-[#0B131D] p-10 flex flex-col gap-3 flex-wrap h-[32rem] w-[30rem] first-of-type:border-green-500 after:absolute after:top-0 after:left-1 after:w-full after:h-full after:bg-black/30 transition-all after:backdrop-blur-sm after:hidden hover:after:block before:content-['Editar'] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:z-50 before:hidden hover:before:block before:text-4xl before:font-bold"
       >
         <h4 className="text-2xl text-[#BBD1EA] flex justify-between items-center mb-5 font-bold">
           Receta{" "}
@@ -87,17 +87,20 @@ const Recipe = ({ order, drugs }: RecipeProps) => {
             ""
           ) : (
             <Attr
-              text={"Próximo pedido:"}
-              info={formatDate(calcNextDate(data.retiredAt, 90))}
+              text={"Llevar recetas el:"}
+              info={formatDate(calcNextDate(data.givenAt, 90))}
             />
           )}
           {data.boughtAt === null ? (
             ""
           ) : (
-            <Attr
-              text={"Próxima compra:"}
-              info={formatDate(calcNextDate(data.boughtAt, 30))}
-            />
+            <>
+              <Attr
+                text={"Próxima compra:"}
+                info={formatDate(calcNextDate(data.boughtAt, 30))}
+              />
+              <Attr info={formatDate(calcNextDate(data.boughtAt, 60))} />
+            </>
           )}
         </section>
         <Drugs drugs={drugs} />
