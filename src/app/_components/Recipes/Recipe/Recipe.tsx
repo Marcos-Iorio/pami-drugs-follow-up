@@ -8,6 +8,7 @@ import Drugs, { Drug } from "../../Drugs/Drugs";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import NewRecipeModal from "../NewRecipeModal/NewRecipeModal";
+import Loader from "../../Loader/Loader";
 
 interface RecipeProps {
   order: Order;
@@ -39,15 +40,19 @@ const updateRecipe = async (order: Order | undefined): Promise<any> => {
 const Recipe = ({ order, drugs }: RecipeProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState(order);
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateRecipeHandler = async (data: Order) => {
+    setIsLoading(true);
     const response = await updateRecipe(data);
 
     if (response?.status === 200) {
+      setIsLoading(false);
       setData(JSON.parse(response.data));
       setIsOpen(false);
       toast.success(response?.message);
     } else {
+      setIsLoading(false);
       toast.error("Hubo un error actualizando la receta");
     }
   };
@@ -105,6 +110,7 @@ const Recipe = ({ order, drugs }: RecipeProps) => {
         </section>
         <Drugs drugs={drugs} />
       </article>
+      {isLoading && <Loader />}
       {isOpen && (
         <NewRecipeModal
           setOpenModal={setIsOpen}

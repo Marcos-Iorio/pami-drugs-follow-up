@@ -6,6 +6,7 @@ import { Drug } from "../../Drugs/Drugs";
 import { Order } from "../../Orders/Orders";
 
 import { toast } from "react-hot-toast";
+import Loader from "../../Loader/Loader";
 
 const createOrder = async (order: Order | undefined): Promise<any> => {
   //Serializa el BigInt a String ya que stringify no puede manejar bigints
@@ -31,15 +32,19 @@ const createOrder = async (order: Order | undefined): Promise<any> => {
 
 const AddRecipe = ({ drugs, id }: { drugs: Drug[]; id: string }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const createRecipe = async (data: Order) => {
+    setIsLoading(true);
     const response = await createOrder(data);
 
-    setIsOpen(false);
-
     if (response?.status === 200) {
+      setIsOpen(false);
+      setIsLoading(false);
       toast.success(response?.message);
     } else {
+      setIsOpen(false);
+      setIsLoading(false);
       toast.error(response?.message);
     }
   };
@@ -52,6 +57,7 @@ const AddRecipe = ({ drugs, id }: { drugs: Drug[]; id: string }) => {
       >
         <p className="text-[#c2c2c2] text-6xl font-ligth">+</p>
       </div>
+      {isLoading && <Loader />}
       {isOpen && (
         <NewRecipeModal
           setOpenModal={setIsOpen}

@@ -20,11 +20,11 @@ interface ModalProps {
 }
 
 interface BackdropProps {
-  onClose: () => void;
+  onClose?: () => void;
   children: ReactNode;
 }
 
-const Backdrop = ({ children, onClose }: BackdropProps) => {
+export const Backdrop = ({ children, onClose }: BackdropProps) => {
   return (
     <section
       onClick={onClose}
